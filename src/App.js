@@ -18,16 +18,18 @@ class App extends Component {
     });
   };
 
-  handleDelete=(task)=>{
+  handleDelete = (task,index) => {
     //use filter
-    const {tasks}=this.state;
-
-    const items=tasks.filter((item)=>item!==task);
-
+    const { tasks } = this.state;
+    console.log("items Delete",task[0]);
+    // const items=tasks.filter((item)=>item!==task);
+    const items = tasks.filter((item,ind) => ind !== index);
+    console.log("filter Items",items);
+    
     this.setState({
-      tasks:items
-    })
-  }
+      tasks: items,
+    });
+  };
 
   handleClick = () => {
     const { task, tasks } = this.state;
@@ -35,17 +37,19 @@ class App extends Component {
     //check if task is empty
     if (task === "") {
       alert("task is empty");
-    }
-    else{
+    } else {
       tasks.push(task);
 
-    //if not add this task in tasks array
-    this.setState({
-      tasks: tasks,
-    });
+      //if not add this task in tasks array
+      this.setState({
+        tasks: tasks,
+      });
     }
-    
   };
+
+  handleEdit=()=>{
+    
+  }
 
   render() {
     const { task, tasks } = this.state;
@@ -56,8 +60,8 @@ class App extends Component {
         <input style={{ margin: "10%" }} onChange={this.handleOnChange} />
         <button onClick={this.handleClick}>Add Task</button>
 
-        {tasks.map((task) => (
-          <Task task={task} handleDelete={this.handleDelete} />
+        {tasks.map((task,index) => (
+          <Task task={task} index={index} handleDelete={this.handleDelete} />
         ))}
       </div>
     );
