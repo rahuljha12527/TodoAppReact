@@ -47,9 +47,14 @@ class App extends Component {
     }
   };
 
-  handleEdit=()=>{
-    
+  handleEdit=(e)=>{
+    const {task,tasks}=this.state;
+    this.setState({
+      task:[e.target.value],
+    })
+
   }
+  
 
   render() {
     const { task, tasks } = this.state;
@@ -61,7 +66,7 @@ class App extends Component {
         <button onClick={this.handleClick}>Add Task</button>
 
         {tasks.map((task,index) => (
-          <Task task={task} index={index} handleDelete={this.handleDelete} />
+          <Task task={task} index={index} handleDelete={this.handleDelete} handleEdit={this.handleEdit} />
         ))}
       </div>
     );
